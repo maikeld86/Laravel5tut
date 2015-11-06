@@ -5,7 +5,7 @@
         <title>About</title>
     </head>
     <body>
-        <h1>About Me: {{ $name }} </h1>
+        <h1>About Me: {!! $name !!} </h1>
         <p>
             Ik ben Maikel,</br>
             En ik ben Laravel 5 aan het leren
