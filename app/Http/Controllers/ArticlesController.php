@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 use App\Article;
 use App\Http\Requests;
-use App\Http\Requests\CreateArticleRequest;
+use App\Http\Requests\ArticleRequest;
+use Illuminate\Http\Request;
 use Illuminate\HttpResponse;
 use App\Http\Controllers\Controller;
 
@@ -16,7 +17,8 @@ class ArticlesController extends Controller
      *
      * @return response
      * */
-    public function index(){
+    public function index()
+    {
         $articles = Article::latest('published_at')->published()->get();
 
         return view('articles.index',compact('articles'));
@@ -28,12 +30,13 @@ class ArticlesController extends Controller
      *@param integer $id
      *@return response
      * */
-    public function show($id){
+    public function show($id)
+    {
         $article = Article::findOrFail($id);
 
         // testing
         //dd($article->created_at->addDays(8)->diffforHumans());
-        dd($article->published_at);
+        //dd($article->published_at);
 
         return view('articles.show',compact('article'));
     }
@@ -44,7 +47,8 @@ class ArticlesController extends Controller
      *
      *@return response
      * */
-    public function create(){
+    public function create()
+    {
         return view('articles.create');
     }
 
@@ -54,10 +58,29 @@ class ArticlesController extends Controller
      *
      *@return response
      * */
-    public function store(CreateArticleRequest $request){
+    public function store(ArticleRequest $request)
+    {
         // validation
         Article::create($request->all());
 
         return redirect('articles');
     }
+    public function edit($id)
+    {
+
+        $article = Article::findOrFail($id);
+
+        return view('articles.edit',compact('article'));
+    }
+
+    public function update($id, ArticleRequest $request)
+    {
+        $article = Article::findOrFail($id);
+
+        $article->update($request->all());
+
+        return redirect('articles');
+    }
 }
+
+
