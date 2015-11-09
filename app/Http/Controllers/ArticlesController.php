@@ -60,7 +60,7 @@ class ArticlesController extends Controller
      * */
     public function store(ArticleRequest $request)
     {
-        // validation
+
         Article::create($request->all());
 
         return redirect('articles');
