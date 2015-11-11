@@ -15,7 +15,7 @@ class ArticlesController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth',['except' => 'index']);
+        $this->middleware('auth',['except' => ['index','show']]);
     }
     /*
      *  show all articles
@@ -25,8 +25,6 @@ class ArticlesController extends Controller
     public function index()
     {
 
-
-
         $articles = Article::latest('published_at')->published()->get();
 
         return view('articles.index',compact('articles'));
@@ -35,12 +33,13 @@ class ArticlesController extends Controller
     /*
      * show a single article
      *
-     *@param integer $id
+     *@param Article $article
      *@return response
      * */
-    public function show($id)
+    public function show(Article $article)
     {
-        $article = Article::findOrFail($id);
+        //oude methode
+        //$article = Article::findOrFail($id);
 
         // testing
         //dd($article->created_at->addDays(8)->diffforHumans());
@@ -75,17 +74,28 @@ class ArticlesController extends Controller
         return redirect('articles');
     }
 
-    public function edit($id)
+     /*
+     * edit an article
+     *
+     *@param Article $article
+     *@return response
+     * */
+    public function edit(Article $article)
     {
 
-        $article = Article::findOrFail($id);
+        //$article = Article::findOrFail($id); oude methode
 
         return view('articles.edit',compact('article'));
     }
-
-    public function update($id, ArticleRequest $request)
+    /*
+    * update an article
+    *
+    *@param Article $article
+    *@return response
+    * */
+    public function update(Article $article, ArticleRequest $request)
     {
-        $article = Article::findOrFail($id);
+        //$article = Article::findOrFail($id); oude methode
 
         $article->update($request->all());
 
