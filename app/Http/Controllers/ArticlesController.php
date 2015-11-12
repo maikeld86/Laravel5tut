@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\HttpResponse;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Laracasts\Flash\Flash;
 
 
 class ArticlesController extends Controller
@@ -67,11 +68,15 @@ class ArticlesController extends Controller
      * */
     public function store(ArticleRequest $request)
     {
-        $article = new Article($request->all());
 
-        Auth::user()->articles()->save($article);
 
-        return redirect('articles');
+        Auth::user()->articles()->create($request->all());
+
+        //flash()->overlay('yout article has been succesfully created', 'Good job!!');
+
+        flash('You are now Logged in');
+
+        return redirect('articles')->with('flash_message');
     }
 
      /*
