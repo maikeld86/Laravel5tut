@@ -9,7 +9,7 @@ use Illuminate\HttpResponse;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Laracasts\Flash\Flash;
-
+use App\Tag;
 
 class ArticlesController extends Controller
 {
@@ -57,7 +57,8 @@ class ArticlesController extends Controller
      * */
     public function create()
     {
-        return view('articles.create');
+        $tags = Tag::lists('name','id');
+        return view('articles.create',compact('tags'));
     }
 
     /*
@@ -68,11 +69,9 @@ class ArticlesController extends Controller
      * */
     public function store(ArticleRequest $request)
     {
+        $article = Auth::user()->articles()->create($request->all());
 
-
-        Auth::user()->articles()->create($request->all());
-
-        //flash()->overlay('yout article has been succesfully created', 'Good job!!');
+        $article->tags()->attach($request->input('tags'));
 
         flash('You are now Logged in');
 
