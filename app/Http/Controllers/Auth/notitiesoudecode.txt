@@ -1,0 +1,13 @@
+        function show
+        //oude methode
+        //$article = Article::findOrFail($id);
+
+        // testing
+        //dd($article->created_at->addDays(8)->diffforHumans());
+        //dd($article->published_at);
+
+        function edit
+        //$article = Article::findOrFail($id); oude methode
+
+        function update
+        //$article = Article::findOrFail($id); oude methode
