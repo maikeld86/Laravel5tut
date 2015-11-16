@@ -69,9 +69,10 @@ class ArticlesController extends Controller
      * */
     public function store(ArticleRequest $request)
     {
+
         $article = Auth::user()->articles()->create($request->all());
 
-        $article->tags()->attach($request->input('tags'));
+        $article->tags()->attach($request->input('tag_list'));
 
         flash('You are now Logged in');
 
@@ -86,10 +87,10 @@ class ArticlesController extends Controller
      * */
     public function edit(Article $article)
     {
-
+        $tags = Tag::lists('name','id'); // tijdelijk
         //$article = Article::findOrFail($id); oude methode
 
-        return view('articles.edit',compact('article'));
+        return view('articles.edit',compact('article','tags'));
     }
     /*
     * update an article
