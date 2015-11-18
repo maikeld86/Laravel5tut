@@ -12,8 +12,8 @@ var elixir = require('laravel-elixir');
  */
 
 elixir(function(mix) {
-
-    mix.sass('app.scss', 'resources/css');
+    // in video wordt verwezen naar recources/css maar in laravel 5 is dit resources/assets/css om dit werkend te krijgen
+    mix.sass('app.scss', 'resources/assets/css');
 
     mix.styles([
         'libs/bootstrap.min.css',
