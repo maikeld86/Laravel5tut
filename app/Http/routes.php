@@ -10,10 +10,7 @@
 | and give it the controller to call when that URI is requested.
 |
 */
-    // tijdelijke home pagina
-    Route::get('/',function(){
-        return 'Home Page';
-    });
+    Route::get('foo','FooController@foo');
 
     Route::get('about','PagesController@about');
     Route::get('contact','PagesController@contact');
@@ -22,6 +19,7 @@
     //optimized way to route
     Route::resource('articles','ArticlesController');
 
+    Route::get('tags/{tags}','TagsController@show');
     Route::controllers([
 
         'auth' => 'Auth\AuthController',
